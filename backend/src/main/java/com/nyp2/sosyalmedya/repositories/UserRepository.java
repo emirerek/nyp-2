@@ -1,0 +1,9 @@
+package com.nyp2.sosyalmedya.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.nyp2.sosyalmedya.entities.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    
+}
