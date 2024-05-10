@@ -1,5 +1,7 @@
 package com.nyp2.sosyalmedya.entities;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,9 +11,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -20,7 +22,7 @@ import jakarta.persistence.Table;
 public class Comment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,9 +37,12 @@ public class Comment {
     @JsonIgnore
     private Post post;
 
-    @Lob
     @Column(columnDefinition = "text")
-    private String text;
+    private String textContent;
+
+    private LocalDateTime creationDate;
+
+    public Comment() {}
 
     public Long getId() {
         return id;
@@ -52,7 +57,11 @@ public class Comment {
     }
 
     public String getText() {
-        return text;
+        return textContent;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
     public void setUser(User user) {
@@ -63,8 +72,12 @@ public class Comment {
         this.post = post;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setText(String textContent) {
+        this.textContent = textContent;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
 }

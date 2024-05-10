@@ -33,19 +33,24 @@ public class PostController {
         return postService.getAllPosts(userId);
     }
 
+    @GetMapping("/{userId}")
+    public List<Post> getAllPostsFromFollowed(@RequestParam Long userId) {
+        return postService.getAllPostsFromFollowed(userId);
+    }
+
     @GetMapping("/{postId}")
     public Post getPost(@PathVariable Long postId) {
         return postService.getPostById(postId);
     }
 
     @PostMapping()
-    public Post createPost(@RequestBody PostCreateRequest newPostRequest) {
-        return postService.createPost(newPostRequest);
+    public Post createPost(@RequestBody PostCreateRequest postCreateRequest) {
+        return postService.createPost(postCreateRequest);
     }
 
     @PutMapping("/{postId}")
-    public Post updatePost(@PathVariable Long postId, @RequestBody PostUpdateRequest newPostRequest) {
-        return postService.updatePost(postId, newPostRequest);
+    public Post updatePost(@PathVariable Long postId, @RequestBody PostUpdateRequest postUpdateRequest) {
+        return postService.updatePost(postId, postUpdateRequest);
     }
 
     @DeleteMapping("/{postId}")

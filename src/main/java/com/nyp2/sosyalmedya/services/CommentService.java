@@ -27,41 +27,37 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public List<Comment> getAllComments(Optional<Long> userId, Optional<Long> postId) {
-        if (userId.isPresent() && postId.isPresent()) {
-            return commentRepository.findByUserIdAndPostId(userId.get(), postId.get());
-        } else if (userId.isPresent()) {
-            return commentRepository.findByUserId(userId.get());
-        } else if (postId.isPresent()) {
-            return commentRepository.findByPostId(postId.get());
-        } else {
-            return commentRepository.findAll();
-        }
-    }
-
     public Comment getComment(Long commentId) {
         return commentRepository.findById(commentId).orElse(null);
     }
 
-    public Comment createComment(CommentCreateRequest newCommentRequest) {
-        User user = userRepository.findById(newCommentRequest.getUserId()).orElse(null);
-        Post post = postRepository.findById(newCommentRequest.getPostId()).orElse(null);
+    public List<Comment> getPostComments(Long postId) {
+        return commentRepository.findByPostId(postId);
+    }
+
+    public List<Comment> getUserComments(Long userId) {
+        return commentRepository.findByUserId(userId);
+    }
+
+    public Comment createComment(CommentCreateRequest commentCreateRequest) {
+        User user = userRepository.findById(commentCreateRequest.getUserId()).orElse(null);
+        Post post = postRepository.findById(commentCreateRequest.getPostId()).orElse(null);
         if (user != null && post != null) {
             Comment newComment = new Comment();
             newComment.setUser(user);
             newComment.setPost(post);
-            newComment.setText(newCommentRequest.getText());
+            newComment.setText(commentCreateRequest.getText());
             return commentRepository.save(newComment);
         } else {
             return null;
         }
     }
 
-    public Comment updateComment(Long commentId, CommentUpdateRequest newCommentRequest) {
+    public Comment updateComment(Long commentId, CommentUpdateRequest commentUpdateRequest) {
         Optional<Comment> comment = commentRepository.findById(commentId);
         if (comment.isPresent()) {
             Comment commentToUpdate = comment.get();
-            commentToUpdate.setText(newCommentRequest.getText());
+            commentToUpdate.setText(commentUpdateRequest.getText());
             return commentRepository.save(commentToUpdate);
         } else {
             return null;

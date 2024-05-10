@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -13,9 +14,11 @@ import jakarta.persistence.Table;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
+
     private String password;
 
     @OneToMany(mappedBy = "user")
@@ -27,10 +30,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Like> likes;
 
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
+    @OneToMany(mappedBy = "follower")
+    private List<Follower> follows;
 
     public Long getId() {
         return id;

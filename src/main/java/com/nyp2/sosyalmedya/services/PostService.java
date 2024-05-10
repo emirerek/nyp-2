@@ -17,8 +17,9 @@ public class PostService {
     private PostRepository postRepository;
     private UserService userService;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
+        this.userService = userService;
     }
 
     public List<Post> getAllPosts(Optional<Long> userId) {
@@ -29,26 +30,30 @@ public class PostService {
         }
     }
 
+    public List<Post> getAllPostsFromFollowed(Long userId) {
+        return postRepository.findLatestPostsByFollowedUsers(userId);
+    }
+
     public Post getPostById(Long postId) {
         return postRepository.findById(postId).orElse(null);
     }
 
-    public Post createPost(PostCreateRequest newPostRequest) {
-        User user = userService.getUserById(newPostRequest.getUserId());
+    public Post createPost(PostCreateRequest postCreateRequest) {
+        User user = userService.getUserById(postCreateRequest.getUserId());
         if (user == null) {
             return null;
         }
         Post newPost = new Post();
-        newPost.setText(newPostRequest.getText());
         newPost.setUser(user);
+        newPost.setText(postCreateRequest.getText());
         return postRepository.save(newPost);
     }
 
-    public Post updatePost(Long postId, PostUpdateRequest newPostRequest) {
+    public Post updatePost(Long postId, PostUpdateRequest postUpdateRequest) {
         Optional<Post> post = postRepository.findById(postId);
         if (post.isPresent()) {
             Post postToUpdate = post.get();
-            postToUpdate.setText(newPostRequest.getText());
+            postToUpdate.setText(postUpdateRequest.getText());
             return postRepository.save(postToUpdate);
         } else {
             return null;

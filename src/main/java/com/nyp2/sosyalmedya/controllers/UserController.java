@@ -1,7 +1,6 @@
 package com.nyp2.sosyalmedya.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp2.sosyalmedya.entities.User;
-import com.nyp2.sosyalmedya.repositories.UserRepository;
 import com.nyp2.sosyalmedya.services.UserService;
 
 @RestController

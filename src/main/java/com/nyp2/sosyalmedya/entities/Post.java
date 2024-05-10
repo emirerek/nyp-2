@@ -1,24 +1,30 @@
 package com.nyp2.sosyalmedya.entities;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="likes")
-public class Like {
+@Table(name="posts")
+public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,11 +33,13 @@ public class Like {
     @JsonIgnore
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Post post;
+/*     @OneToMany(mappedBy = "posts")
+    private List<Like> likes;
+ */
+    @Column(columnDefinition = "text")
+    private String textContent;
+
+    private LocalDateTime creationDate;
 
     public Long getId() {
         return id;
@@ -41,16 +49,24 @@ public class Like {
         return user;
     }
 
-    public Post getPost() {
-        return post;
+    public String getText() {
+        return textContent;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setText(String textContent) {
+        this.textContent = textContent;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
 }

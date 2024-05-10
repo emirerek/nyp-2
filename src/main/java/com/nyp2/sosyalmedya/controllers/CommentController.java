@@ -28,24 +28,29 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping
-    public List<Comment> getAllComments(@RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId) {
-        return commentService.getAllComments(userId, postId);
-    }
-
     @GetMapping("/{commentId}")
     public Comment getComment(@PathVariable Long commentId) {
         return commentService.getComment(commentId);
     }
 
+    @GetMapping("/{postId}")
+    public List<Comment> getPostComments(@RequestParam Long postId) {
+        return commentService.getPostComments(postId);
+    }
+
+    @GetMapping("/{userId}")
+    public List<Comment> getAllComments(@RequestParam Long userId) {
+        return commentService.getUserComments(userId);
+    }
+
     @PostMapping
-    public Comment createComment(@RequestBody CommentCreateRequest newCommentRequest) {
-        return commentService.createComment(newCommentRequest);
+    public Comment createComment(@RequestBody CommentCreateRequest commentCreateRequest) {
+        return commentService.createComment(commentCreateRequest);
     }
 
     @PutMapping("/{commentId}")
-    public Comment updateComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequest newCommentRequest) {
-        return commentService.updateComment(commentId, newCommentRequest);
+    public Comment updateComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequest commentUpdateRequest) {
+        return commentService.updateComment(commentId, commentUpdateRequest);
     }
 
     @DeleteMapping("/{commentId}")
