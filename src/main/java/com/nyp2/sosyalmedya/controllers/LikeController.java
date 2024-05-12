@@ -3,7 +3,6 @@ package com.nyp2.sosyalmedya.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,15 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.nyp2.sosyalmedya.entities.Comment;
 import com.nyp2.sosyalmedya.entities.Like;
 import com.nyp2.sosyalmedya.requests.LikeCreateRequest;
 import com.nyp2.sosyalmedya.services.LikeService;
 
 import jakarta.validation.Valid;
 
-@Controller
+@RestController
 @RequestMapping("/likes")
 public class LikeController {
     
@@ -34,12 +33,12 @@ public class LikeController {
         return likeService.getAllLikes(postId, userId);
     }
     
-    @PostMapping
+    @PostMapping()
     public Like createLike(@Valid @RequestBody LikeCreateRequest likeCreateRequest) {
         return likeService.createLike(likeCreateRequest);
     }
 
-    @DeleteMapping
+    @DeleteMapping()
     public void deleteLike(@PathVariable Long likeId) {
         likeService.deleteLike(likeId);
     }
