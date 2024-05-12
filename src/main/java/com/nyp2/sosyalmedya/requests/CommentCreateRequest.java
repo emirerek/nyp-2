@@ -1,9 +1,14 @@
 package com.nyp2.sosyalmedya.requests;
 
+import jakarta.validation.constraints.NotNull;
+
 public class CommentCreateRequest {
     
+    @NotNull
     private Long userId;
+    @NotNull
     private Long postId;
+    @NotNull
     private String text;
 
     public Long getUserId() {

@@ -1,8 +1,12 @@
 package com.nyp2.sosyalmedya.requests;
 
+import jakarta.validation.constraints.NotNull;
+
 public class UserCreateRequest {
     
+    @NotNull
     String username;
+    @NotNull
     String password;
 
     public String getUsername() {

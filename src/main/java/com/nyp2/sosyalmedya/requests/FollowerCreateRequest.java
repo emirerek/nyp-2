@@ -1,8 +1,12 @@
 package com.nyp2.sosyalmedya.requests;
 
+import jakarta.validation.constraints.NotNull;
+
 public class FollowerCreateRequest {
     
+    @NotNull
     private Long followingUserId;
+    @NotNull
     private Long followedUserId;
 
     public Long getFollowingUserId() {

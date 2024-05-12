@@ -1,8 +1,12 @@
 package com.nyp2.sosyalmedya.requests;
 
+import jakarta.validation.constraints.NotNull;
+
 public class PostCreateRequest {
 
+    @NotNull
     private Long userId;
+    @NotNull
     private String textContent;
 
     public Long getUserId() {

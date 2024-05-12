@@ -2,6 +2,7 @@ package com.nyp2.sosyalmedya.controllers;
 
 import java.util.List;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
+@Validated
 public class UserController {
 
     private UserService userService;

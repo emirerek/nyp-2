@@ -3,6 +3,7 @@ package com.nyp2.sosyalmedya.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/posts")
+@Validated
 public class PostController {
     
     private PostService postService;
