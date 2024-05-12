@@ -1,9 +1,11 @@
 package com.nyp2.sosyalmedya.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.nyp2.sosyalmedya.entities.Comment;
 import com.nyp2.sosyalmedya.entities.Like;
 import com.nyp2.sosyalmedya.entities.Post;
 import com.nyp2.sosyalmedya.entities.User;
@@ -22,13 +24,15 @@ public class LikeService {
         this.userService = userService;
         this.postService = postService;
     }
-    
-    public List<Like> getLikesByUserId(Long userId) {
-        return likeRepository.findByUserId(userId);
-    }
 
-    public List<Like> getLikesByPostId(Long postId) {
-        return likeRepository.findByPostId(postId);
+    public List<Like> getAllLikes(Optional<Long> postId, Optional<Long> userId) {
+        if (postId.isPresent()) {
+            return likeRepository.findByPostId(postId.get());
+        } else if (userId.isPresent()) {
+            return likeRepository.findByUserId(userId.get());
+        } else {
+            return null;
+        }
     }
 
     public Like createLike(LikeCreateRequest likeCreateRequest) {

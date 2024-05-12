@@ -1,6 +1,7 @@
 package com.nyp2.sosyalmedya.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nyp2.sosyalmedya.entities.Comment;
 import com.nyp2.sosyalmedya.entities.Like;
 import com.nyp2.sosyalmedya.requests.LikeCreateRequest;
 import com.nyp2.sosyalmedya.services.LikeService;
@@ -28,13 +30,8 @@ public class LikeController {
     }
 
     @GetMapping()
-    public List<Like> getUserLikes(@RequestParam Long userId) {
-        return likeService.getLikesByUserId(userId);
-    }
-
-    @GetMapping()
-    public List<Like> getPostLikes(@RequestParam Long postId) {
-        return likeService.getLikesByPostId(postId);
+    public List<Like> getAllLikes(@RequestParam Optional<Long> postId, @RequestParam Optional<Long> userId) {
+        return likeService.getAllLikes(postId, userId);
     }
     
     @PostMapping
