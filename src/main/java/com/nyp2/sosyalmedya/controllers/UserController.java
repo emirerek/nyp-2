@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp2.sosyalmedya.entities.User;
+import com.nyp2.sosyalmedya.requests.UserCreateRequest;
+import com.nyp2.sosyalmedya.requests.UserUpdateRequest;
 import com.nyp2.sosyalmedya.services.UserService;
 
 @RestController
@@ -35,13 +37,13 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User newUser) {
-        return userService.createUser(newUser);
+    public User createUser(@RequestBody UserCreateRequest userCreateRequest) {
+        return userService.createUser(userCreateRequest);
     }
 
     @PutMapping("/{userId}")
-    public User updateUser(@PathVariable Long userId, @RequestBody User newUser) {
-        return userService.updateUser(userId, newUser);
+    public User updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest) {
+        return userService.updateUser(userId, userUpdateRequest);
     }
 
     @DeleteMapping("/{userId}")

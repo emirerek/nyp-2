@@ -1,5 +1,6 @@
 package com.nyp2.sosyalmedya.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,19 +46,19 @@ public class PostService {
         }
         Post newPost = new Post();
         newPost.setUser(user);
-        newPost.setText(postCreateRequest.getText());
+        newPost.setTextContent(postCreateRequest.getTextContent());
+        newPost.setCreationDate(LocalDateTime.now());
         return postRepository.save(newPost);
     }
 
     public Post updatePost(Long postId, PostUpdateRequest postUpdateRequest) {
         Optional<Post> post = postRepository.findById(postId);
-        if (post.isPresent()) {
-            Post postToUpdate = post.get();
-            postToUpdate.setText(postUpdateRequest.getText());
-            return postRepository.save(postToUpdate);
-        } else {
+        if (!post.isPresent()) {
             return null;
         }
+        Post postToUpdate = post.get();
+        postToUpdate.setTextContent(postUpdateRequest.getTextContent());
+        return postRepository.save(postToUpdate);
     }
 
     public void deletePost(Long postId) {

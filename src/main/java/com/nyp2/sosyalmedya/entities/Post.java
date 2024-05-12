@@ -33,9 +33,9 @@ public class Post {
     @JsonIgnore
     private User user;
 
-/*     @OneToMany(mappedBy = "posts")
+    @OneToMany(mappedBy = "posts")
     private List<Like> likes;
- */
+ 
     @Column(columnDefinition = "text")
     private String textContent;
 
@@ -49,7 +49,7 @@ public class Post {
         return user;
     }
 
-    public String getText() {
+    public String getTextContent() {
         return textContent;
     }
 
@@ -61,7 +61,7 @@ public class Post {
         this.user = user;
     }
 
-    public void setText(String textContent) {
+    public void setTextContent(String textContent) {
         this.textContent = textContent;
     }
 

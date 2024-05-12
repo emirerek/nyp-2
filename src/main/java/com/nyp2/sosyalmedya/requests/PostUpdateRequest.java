@@ -2,10 +2,10 @@ package com.nyp2.sosyalmedya.requests;
 
 public class PostUpdateRequest {
 
-    String text;
+    String textContent;
 
-    public String getText() {
-        return text;
+    public String getTextContent() {
+        return textContent;
     }
 
 }

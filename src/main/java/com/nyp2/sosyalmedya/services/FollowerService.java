@@ -21,12 +21,13 @@ public class FollowerService {
     public void createFollower(FollowerCreateRequest followerCreateRequest) {
         User followingUser = userService.getUserById(followerCreateRequest.getFollowingUserId());
         User followedUser = userService.getUserById(followerCreateRequest.getFollowedUserId());
-        if (followingUser != null && followedUser != null) {
-            Follower newFollower = new Follower();
-            newFollower.setFollowed(followedUser);
-            newFollower.setFollower(followingUser);
-            followerRepository.save(newFollower);
+        if (followingUser == null && followedUser == null) {
+            return;
         }
+        Follower newFollower = new Follower();
+        newFollower.setFollowed(followedUser);
+        newFollower.setFollower(followingUser);
+        followerRepository.save(newFollower);
     }
 
     public void deleteFollower(Long followerId) {

@@ -1,5 +1,6 @@
 package com.nyp2.sosyalmedya.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,26 +43,25 @@ public class CommentService {
     public Comment createComment(CommentCreateRequest commentCreateRequest) {
         User user = userRepository.findById(commentCreateRequest.getUserId()).orElse(null);
         Post post = postRepository.findById(commentCreateRequest.getPostId()).orElse(null);
-        if (user != null && post != null) {
-            Comment newComment = new Comment();
-            newComment.setUser(user);
-            newComment.setPost(post);
-            newComment.setText(commentCreateRequest.getText());
-            return commentRepository.save(newComment);
-        } else {
+        if (user == null || post == null) {
             return null;
         }
+        Comment newComment = new Comment();
+        newComment.setUser(user);
+        newComment.setPost(post);
+        newComment.setTextContent(commentCreateRequest.getText());
+        newComment.setCreationDate(LocalDateTime.now());
+        return commentRepository.save(newComment);
     }
 
     public Comment updateComment(Long commentId, CommentUpdateRequest commentUpdateRequest) {
         Optional<Comment> comment = commentRepository.findById(commentId);
-        if (comment.isPresent()) {
-            Comment commentToUpdate = comment.get();
-            commentToUpdate.setText(commentUpdateRequest.getText());
-            return commentRepository.save(commentToUpdate);
-        } else {
+        if (!comment.isPresent()) {
             return null;
         }
+        Comment commentToUpdate = comment.get();
+        commentToUpdate.setTextContent(commentUpdateRequest.getText());
+        return commentRepository.save(commentToUpdate);
     }
 
     public void deleteComment(Long commentId) {

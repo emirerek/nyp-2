@@ -56,7 +56,7 @@ public class Comment {
         return post;
     }
 
-    public String getText() {
+    public String getTextContent() {
         return textContent;
     }
 
@@ -72,7 +72,7 @@ public class Comment {
         this.post = post;
     }
 
-    public void setText(String textContent) {
+    public void setTextContent(String textContent) {
         this.textContent = textContent;
     }
 

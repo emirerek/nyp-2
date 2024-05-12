@@ -13,6 +13,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByUserId(Long userId);
 
     @Query("SELECT p FROM Post p WHERE p.user IN (SELECT f.followed FROM Follower f WHERE f.follower.id = :userId) ORDER BY p.creationDate DESC")
-    List<Post> findLatestPostsByFollowedUsers(@Param("userId") Long userId);    
+    List<Post> findLatestPostsByFollowedUsers(@Param("userId") Long userId); 
     
 }

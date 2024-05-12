@@ -3,10 +3,10 @@ package com.nyp2.sosyalmedya.requests;
 public class PostCreateRequest {
 
     Long userId;
-    String text;
+    String textContent;
 
-    public String getText() {
-        return text;
+    public String getTextContent() {
+        return textContent;
     }
 
     public Long getUserId() {

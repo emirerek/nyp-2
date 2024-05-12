@@ -34,14 +34,13 @@ public class LikeService {
     public Like createLike(LikeCreateRequest likeCreateRequest) {
         User user = userService.getUserById(likeCreateRequest.getUserId());
         Post post = postService.getPostById(likeCreateRequest.getPostId());
-        if (user != null && post != null) {
-            Like newLike = new Like();
-            newLike.setPost(post);
-            newLike.setUser(user);
-            return likeRepository.save(newLike); 
-        } else {
+        if (user == null || post == null) {
             return null;
         }
+        Like newLike = new Like();
+        newLike.setPost(post);
+        newLike.setUser(user);
+        return likeRepository.save(newLike); 
     }
 
     public void deleteLike(Long likeId) {
