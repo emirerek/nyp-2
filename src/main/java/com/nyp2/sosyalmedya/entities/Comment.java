@@ -42,8 +42,6 @@ public class Comment {
 
     private LocalDateTime creationDate;
 
-    public Comment() {}
-
     public Long getId() {
         return id;
     }
