@@ -3,6 +3,7 @@ package com.nyp2.sosyalmedya.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,14 +12,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp2.sosyalmedya.entities.Post;
 import com.nyp2.sosyalmedya.requests.PostCreateRequest;
 import com.nyp2.sosyalmedya.requests.PostUpdateRequest;
 import com.nyp2.sosyalmedya.services.PostService;
 
-@RestController
+import jakarta.validation.Valid;
+
+@Controller
 @RequestMapping("/posts")
 public class PostController {
     
@@ -33,7 +35,7 @@ public class PostController {
         return postService.getAllPosts(userId);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping()
     public List<Post> getAllPostsFromFollowed(@RequestParam Long userId) {
         return postService.getAllPostsFromFollowed(userId);
     }
@@ -44,12 +46,12 @@ public class PostController {
     }
 
     @PostMapping()
-    public Post createPost(@RequestBody PostCreateRequest postCreateRequest) {
+    public Post createPost(@Valid @RequestBody PostCreateRequest postCreateRequest) {
         return postService.createPost(postCreateRequest);
     }
 
     @PutMapping("/{postId}")
-    public Post updatePost(@PathVariable Long postId, @RequestBody PostUpdateRequest postUpdateRequest) {
+    public Post updatePost(@PathVariable Long postId, @Valid @RequestBody PostUpdateRequest postUpdateRequest) {
         return postService.updatePost(postId, postUpdateRequest);
     }
 

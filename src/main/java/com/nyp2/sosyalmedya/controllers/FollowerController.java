@@ -3,11 +3,14 @@ package com.nyp2.sosyalmedya.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nyp2.sosyalmedya.requests.FollowerCreateRequest;
 import com.nyp2.sosyalmedya.services.FollowerService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/follower")
@@ -20,7 +23,7 @@ public class FollowerController {
     }
 
     @PostMapping
-    public void createFollower(@RequestParam FollowerCreateRequest followerCreateRequest) {
+    public void createFollower(@Valid @RequestBody FollowerCreateRequest followerCreateRequest) {
         followerService.createFollower(followerCreateRequest);
     }
 

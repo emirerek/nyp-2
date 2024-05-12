@@ -33,7 +33,7 @@ public class Post {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "posts")
+    @OneToMany(mappedBy = "post")
     private List<Like> likes;
  
     @Column(columnDefinition = "text")

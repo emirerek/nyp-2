@@ -2,6 +2,7 @@ package com.nyp2.sosyalmedya.controllers;
 
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,14 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp2.sosyalmedya.entities.User;
 import com.nyp2.sosyalmedya.requests.UserCreateRequest;
 import com.nyp2.sosyalmedya.requests.UserUpdateRequest;
 import com.nyp2.sosyalmedya.services.UserService;
 
-@RestController
+import jakarta.validation.Valid;
+
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
@@ -37,12 +39,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody UserCreateRequest userCreateRequest) {
+    public User createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
         return userService.createUser(userCreateRequest);
     }
 
     @PutMapping("/{userId}")
-    public User updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest) {
+    public User updateUser(@PathVariable Long userId, @Valid @RequestBody UserUpdateRequest userUpdateRequest) {
         return userService.updateUser(userId, userUpdateRequest);
     }
 

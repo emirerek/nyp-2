@@ -28,16 +28,14 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public Comment getComment(Long commentId) {
-        return commentRepository.findById(commentId).orElse(null);
-    }
-
-    public List<Comment> getPostComments(Long postId) {
-        return commentRepository.findByPostId(postId);
-    }
-
-    public List<Comment> getUserComments(Long userId) {
-        return commentRepository.findByUserId(userId);
+    public List<Comment> getAllComments(Optional<Long> postId, Optional<Long> userId) {
+        if (postId.isPresent()) {
+            return commentRepository.findByPostId(postId.get());
+        } else if (userId.isPresent()) {
+            return commentRepository.findByUserId(userId.get());
+        } else {
+            return null;
+        }
     }
 
     public Comment createComment(CommentCreateRequest commentCreateRequest) {

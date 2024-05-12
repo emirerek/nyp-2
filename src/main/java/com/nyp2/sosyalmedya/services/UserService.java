@@ -28,6 +28,7 @@ public class UserService {
     }
 
     public User createUser(UserCreateRequest userCreateRequest) {
+        System.out.println(userCreateRequest.getUsername());
         User user = userRepository.findByUsername(userCreateRequest.getUsername());
         if (user != null) {
             return null;
