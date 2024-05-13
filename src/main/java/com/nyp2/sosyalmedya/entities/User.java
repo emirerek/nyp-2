@@ -2,6 +2,8 @@ package com.nyp2.sosyalmedya.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,15 +24,23 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Like> likes;
 
-    @OneToMany(mappedBy = "follower")
+    @OneToMany(mappedBy = "followedUser")
+    @JsonIgnore
+    private List<Follower> followers;
+
+    @OneToMany(mappedBy = "followingUser")
+    @JsonIgnore
     private List<Follower> follows;
 
     public Long getId() {
@@ -43,6 +53,31 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @JsonIgnore
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    @JsonIgnore
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    @JsonIgnore
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    @JsonIgnore
+    public List<Follower> getFollowers() {
+        return followers;
+    }
+
+    @JsonIgnore
+    public List<Follower> getFollows() {
+        return follows;
     }
 
     public void setUsername(String username) {

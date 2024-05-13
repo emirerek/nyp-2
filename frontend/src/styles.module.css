@@ -1,0 +1,31 @@
+body {
+    overflow: hidden;
+}
+
+.wrapper {
+    height: 100%;
+    margin-top: 16px;
+}
+
+.menu {
+    height: 100%;
+    width: 256px;
+    background-color: var(--mantine-color-dark-6);
+}
+
+.menuLink {
+    width: 100%;
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+    border-radius: var(--mantine-radius-md);
+  
+    &:hover {
+      background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-5));
+    }
+}
+
+.content {
+    width: 640px;
+    height: 100vh;
+    padding: 0 16px 0 16px;
+    padding-bottom: 48px;
+}

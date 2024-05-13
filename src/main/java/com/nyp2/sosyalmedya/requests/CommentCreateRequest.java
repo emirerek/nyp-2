@@ -9,7 +9,7 @@ public class CommentCreateRequest {
     @NotNull
     private Long postId;
     @NotNull
-    private String text;
+    private String textContent;
 
     public Long getUserId() {
         return userId;
@@ -27,12 +27,12 @@ public class CommentCreateRequest {
         this.postId = postId;
     }
 
-    public String getText() {
-        return text;
+    public String getTextContent() {
+        return textContent;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 
 }

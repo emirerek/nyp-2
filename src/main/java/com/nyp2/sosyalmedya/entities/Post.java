@@ -27,14 +27,16 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "post")
     private List<Like> likes;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
  
     @Column(columnDefinition = "text")
     private String textContent;
@@ -55,6 +57,14 @@ public class Post {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public List<Like> getLikes() {
+        return this.likes;
+    }
+
+    public List<Comment> getComments() {
+        return this.comments;
     }
 
     public void setUser(User user) {

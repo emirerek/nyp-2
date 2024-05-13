@@ -17,31 +17,31 @@ public class Follower {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "followed")
-    private User followed;
+    @JoinColumn(name = "followingUser")
+    private User followingUser;
 
     @ManyToOne
-    @JoinColumn(name = "follower")
-    private User follower;
+    @JoinColumn(name = "followedUser")
+    private User followedUser;
 
     public Long getId() {
         return this.id;
     }
 
-    public User getFollowed() {
-        return this.followed;
+    public User getFollowingUser() {
+        return this.followingUser;
     }
 
-    public User getFollower() {
-        return this.follower;
+    public User getFollowedUser() {
+        return this.followedUser;
     }
 
-    public void setFollowed(User user) {
-        this.followed = user;
+    public void setFollowedUser(User followedUser) {
+        this.followedUser = followedUser;
     }
 
-    public void setFollower(User user) {
-        this.follower = user;
+    public void setFollowingUser(User followingUser) {
+        this.followingUser = followingUser;
     }
 
 }

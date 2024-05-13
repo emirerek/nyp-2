@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nyp2.sosyalmedya.entities.Post;
 import com.nyp2.sosyalmedya.requests.PostCreateRequest;
 import com.nyp2.sosyalmedya.requests.PostUpdateRequest;
+import com.nyp2.sosyalmedya.responses.PostResponse;
 import com.nyp2.sosyalmedya.services.PostService;
 
 import jakarta.validation.Valid;
@@ -35,17 +36,17 @@ public class PostController {
     }
 
     @GetMapping()
-    public List<Post> getAllPosts(@RequestParam Optional<Long> userId) {
+    public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId) {
         return postService.getAllPosts(userId);
     }
 
-/*     @GetMapping()
-    public List<Post> getAllPostsFromFollowed(@RequestParam Long userId) {
+    @GetMapping("/followed")
+    public List<PostResponse> getAllPostsFromFollowed(@RequestParam Long userId) {
         return postService.getAllPostsFromFollowed(userId);
-    } */
+    }
 
     @GetMapping("/{postId}")
-    public Post getPost(@PathVariable Long postId) {
+    public PostResponse getPost(@PathVariable Long postId) {
         return postService.getPostById(postId);
     }
 

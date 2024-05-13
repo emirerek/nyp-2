@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp2.sosyalmedya.entities.Like;
 import com.nyp2.sosyalmedya.requests.LikeCreateRequest;
+import com.nyp2.sosyalmedya.responses.PostResponse;
 import com.nyp2.sosyalmedya.services.LikeService;
 
 import jakarta.validation.Valid;
@@ -33,8 +34,13 @@ public class LikeController {
     }
 
     @GetMapping()
-    public List<Like> getAllLikes(@RequestParam Optional<Long> postId, @RequestParam Optional<Long> userId) {
+    public List<PostResponse> getAllLikes(@RequestParam Optional<Long> postId, @RequestParam Optional<Long> userId) {
         return likeService.getAllLikes(postId, userId);
+    }
+
+    @GetMapping("/{postId}")
+    public boolean isLiked(@PathVariable Long postId, @RequestParam Long userId) {
+        return likeService.isLiked(postId, userId);
     }
     
     @PostMapping()
@@ -43,8 +49,8 @@ public class LikeController {
     }
 
     @DeleteMapping()
-    public void deleteLike(@PathVariable Long likeId) {
-        likeService.deleteLike(likeId);
+    public void deleteLike(@RequestParam Long postId, @RequestParam Long userId) {
+        likeService.deleteLike(postId, userId);
     }
 
 }

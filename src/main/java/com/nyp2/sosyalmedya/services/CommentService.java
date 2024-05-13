@@ -3,6 +3,7 @@ package com.nyp2.sosyalmedya.services;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import com.nyp2.sosyalmedya.repositories.PostRepository;
 import com.nyp2.sosyalmedya.repositories.UserRepository;
 import com.nyp2.sosyalmedya.requests.CommentCreateRequest;
 import com.nyp2.sosyalmedya.requests.CommentUpdateRequest;
+import com.nyp2.sosyalmedya.responses.CommentResponse;
+import com.nyp2.sosyalmedya.responses.UserResponse;
 
 @Service
 public class CommentService {
@@ -28,11 +31,17 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public List<Comment> getAllComments(Optional<Long> postId, Optional<Long> userId) {
+    public List<CommentResponse> getAllComments(Optional<Long> postId, Optional<Long> userId) {
         if (postId.isPresent()) {
-            return commentRepository.findByPostId(postId.get());
+            List<Comment> comments = commentRepository.findByPostId(postId.get());
+            return comments.stream()
+                .map(this::convertToCommentResponse)
+                .collect(Collectors.toList());
         } else if (userId.isPresent()) {
-            return commentRepository.findByUserId(userId.get());
+            List<Comment> comments = commentRepository.findByUserId(userId.get());
+            return comments.stream()
+                .map(this::convertToCommentResponse)
+                .collect(Collectors.toList());
         } else {
             return null;
         }
@@ -47,7 +56,7 @@ public class CommentService {
         Comment newComment = new Comment();
         newComment.setUser(user);
         newComment.setPost(post);
-        newComment.setTextContent(commentCreateRequest.getText());
+        newComment.setTextContent(commentCreateRequest.getTextContent());
         newComment.setCreationDate(LocalDateTime.now());
         return commentRepository.save(newComment);
     }
@@ -58,7 +67,7 @@ public class CommentService {
             return null;
         }
         Comment commentToUpdate = comment.get();
-        commentToUpdate.setTextContent(commentUpdateRequest.getText());
+        commentToUpdate.setTextContent(commentUpdateRequest.getTextContent());
         return commentRepository.save(commentToUpdate);
     }
 
@@ -66,4 +75,19 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
     
+    private CommentResponse convertToCommentResponse(Comment comment) {
+        UserResponse userResponse = new UserResponse(
+            comment.getUser().getId(), 
+            comment.getUser().getUsername(),
+            comment.getUser().getFollowers().size(),
+            comment.getUser().getFollows().size()
+        );
+        return new CommentResponse(
+            comment.getId(), 
+            userResponse, 
+            comment.getTextContent(), 
+            comment.getCreationDate()
+        );
+    }
+
 }

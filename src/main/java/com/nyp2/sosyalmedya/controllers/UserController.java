@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nyp2.sosyalmedya.entities.User;
 import com.nyp2.sosyalmedya.requests.UserCreateRequest;
 import com.nyp2.sosyalmedya.requests.UserUpdateRequest;
+import com.nyp2.sosyalmedya.responses.UserResponse;
 import com.nyp2.sosyalmedya.services.UserService;
 
 import jakarta.validation.Valid;
@@ -33,12 +34,12 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<User> getAllUsers() {
+    public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{userId}")
-    public User getUser(@PathVariable Long userId) {
+    public UserResponse getUser(@PathVariable Long userId) {
         return userService.getUserById(userId);
     }
 

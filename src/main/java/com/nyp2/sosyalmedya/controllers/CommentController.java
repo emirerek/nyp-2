@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nyp2.sosyalmedya.entities.Comment;
 import com.nyp2.sosyalmedya.requests.CommentCreateRequest;
 import com.nyp2.sosyalmedya.requests.CommentUpdateRequest;
+import com.nyp2.sosyalmedya.responses.CommentResponse;
 import com.nyp2.sosyalmedya.services.CommentService;
 
 import jakarta.validation.Valid;
@@ -35,7 +36,7 @@ public class CommentController {
     }
 
     @GetMapping()
-    public List<Comment> getAllComments(@RequestParam Optional<Long> postId, @RequestParam Optional<Long> userId) {
+    public List<CommentResponse> getAllComments(@RequestParam Optional<Long> postId, @RequestParam Optional<Long> userId) {
         return commentService.getAllComments(postId, userId);
     }
 

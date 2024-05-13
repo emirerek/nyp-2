@@ -5,14 +5,24 @@ import jakarta.validation.constraints.NotNull;
 public class CommentUpdateRequest {
     
     @NotNull
-    private String text;
+    private Long id;
+    @NotNull
+    private String textContent;
 
-    public String getText() {
-        return text;
+    public Long getId() {
+        return id;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTextContent() {
+        return textContent;
+    }
+
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 
 }
